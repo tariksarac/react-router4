@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 
 import HeaderContainer from '../Header/HeaderContainer'
 import HomePage from '../../components/HomePage/HomePage'
-import AboutPage from '../../components/AboutPage/AboutPage'
+import RegisterPage from '../../components/RegisterPage/RegisterPage'
 import NotFoundPage from '../../components/NotFoundPage/NotFoundPage'
 import AuthService from '../../utils/AuthService'
 
@@ -32,12 +32,13 @@ class App extends React.Component {
     }
 
     render() {
+        console.log(this.props)
         return(
             <div>
                 <HeaderContainer authService={this.authService} />
                 <Switch>
                     <Route exact path="/" component={HomePage}/>
-                    <Route path="/about" component={AboutPage}/>
+                    <Route path="/register" component={RegisterPage}/>
                     <Route component={NotFoundPage}/>
                 </Switch>
             </div>

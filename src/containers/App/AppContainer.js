@@ -14,6 +14,6 @@ const mapDispatchToProps = (dispatch) => {
 const AppContainer = withRouter(connect(
     null, // no mapStateToProps
     mapDispatchToProps
-)(AppView))
+)(AppView));
 
 export default AppContainer

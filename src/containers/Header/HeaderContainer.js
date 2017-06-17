@@ -5,13 +5,13 @@ import { withRouter } from 'react-router-dom'
 import HeaderView from './HeaderView'
 
 const mapStateToProps = (state) => {
-    const { isAuthenticated, profile, error } = state.auth
+    const { isAuthenticated, profile, error } = state.auth;
     return {
         isAuthenticated,
         profile,
         error
     }
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
     return {
