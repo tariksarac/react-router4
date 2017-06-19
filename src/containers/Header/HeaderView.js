@@ -1,14 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import {Navbar, Nav, NavDropdown, MenuItem, FormGroup, Button, FormControl} from 'react-bootstrap'
+import {Navbar, Nav, NavDropdown, MenuItem, FormGroup, FormControl} from 'react-bootstrap'
 
-import AuthService from '../../utils/AuthService'
 import './Header.css'
 
-const Header = ({ authService, history, isAuthenticated, profile, error, loginRequest, logoutSuccess }) =>
+const Header = () =>
     <div>
-        {/*here goes dropdown react component not bootstrap*/}
+
         <Navbar inverse collapseOnSelect>
             <Navbar.Header>
                 <Navbar.Brand>
@@ -28,11 +27,10 @@ const Header = ({ authService, history, isAuthenticated, profile, error, loginRe
                     <NavDropdown eventKey={2} title="Login/Register" id="login-register-dropdown">
                         <MenuItem eventKey={2.1}><Link to='/register'>Register</Link></MenuItem>
                         <MenuItem eventKey={2.2}>
-                            { !isAuthenticated ? (
+                            { true ? (
                                 <div
                                     onClick={() => {
-                                        authService.login();
-                                        loginRequest()
+                                        console.log('login');
                                     }}
                                 >
                                     Login
@@ -40,17 +38,13 @@ const Header = ({ authService, history, isAuthenticated, profile, error, loginRe
                             ) : (
                                 <div
                                     onClick={() => {
-                                        logoutSuccess()
-                                        AuthService.logout();// careful, this is a static method
-                                        history.push({ pathname: '/' })
+                                        console.log('logout');
                                     }}
                                 >
                                     Logout
                                 </div>
                             )}
-                            { error &&
-                            <p>{error}</p>
-                            }
+
                         </MenuItem>
                     </NavDropdown>
                 </Nav>
@@ -64,36 +58,18 @@ const Header = ({ authService, history, isAuthenticated, profile, error, loginRe
             </Navbar.Collapse>
         </Navbar>
 
-
-        {/*<h1>React Redux Auth0 Kit</h1>*/}
-        {/*<ul className="list-inline">*/}
-            {/*<li><Link to='/'>Home</Link></li>*/}
-            {/*<li><Link to='/about'>About</Link></li>*/}
-        {/*</ul>*/}
-        { !isAuthenticated ? (
-            null
-        ) : (
-            <div>
-                <img src={profile.picture} height="40px" alt="profile" />
-                <span>Welcome, {profile.nickname}</span>
-            </div>
-        )}
-        { error &&
-        <p>{error}</p>
-        }
-
     </div>
 
 Header.propTypes = {
-    authService: PropTypes.object.isRequired,
-    history: PropTypes.shape({
-        push: PropTypes.func.isRequired,
-    }).isRequired,
-    isAuthenticated: PropTypes.bool.isRequired,
-    profile: PropTypes.object,
-    error: PropTypes.string,
-    loginRequest: PropTypes.func.isRequired,
-    logoutSuccess: PropTypes.func.isRequired
+    // authService: PropTypes.object.isRequired,
+    // history: PropTypes.shape({
+    //     push: PropTypes.func.isRequired,
+    // }).isRequired,
+    // isAuthenticated: PropTypes.bool.isRequired,
+    // profile: PropTypes.object,
+    // error: PropTypes.string,
+    // loginRequest: PropTypes.func.isRequired,
+    // logoutSuccess: PropTypes.func.isRequired
 }
 
 export default Header

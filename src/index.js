@@ -8,8 +8,6 @@ import AppContainer from './containers/App/AppContainer'
 
 const store = configureStore();
 
-{/*The main container for app*/}
-
 render(
     <Provider store={store}>
         <Router>

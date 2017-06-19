@@ -1,13 +1,11 @@
 import { connect } from 'react-redux'
-import { loginSuccess, loginError } from '../../actions/auth'
 import { withRouter } from 'react-router-dom'
 
 import AppView from './AppView'
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loginSuccess: (profile) => dispatch(loginSuccess(profile)),
-        loginError: (error) => dispatch(loginError(error))
+
     }
 };
 

@@ -1,22 +1,18 @@
 import { connect } from 'react-redux'
-import { loginRequest, logoutSuccess } from '../../actions/auth'
 import { withRouter } from 'react-router-dom'
 
 import HeaderView from './HeaderView'
 
 const mapStateToProps = (state) => {
-    const { isAuthenticated, profile, error } = state.auth;
+    const { isAuthenticated, profile, error } = state;
     return {
-        isAuthenticated,
-        profile,
-        error
+
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loginRequest: () => dispatch(loginRequest()),
-        logoutSuccess: () => dispatch(logoutSuccess())
+
     }
 }
 
