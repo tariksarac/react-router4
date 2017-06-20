@@ -9,8 +9,12 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
+const mapStateToProps = (state) => {
+    return { authenticated: state.auth.authenticated };
+};
+
 const AppContainer = withRouter(connect(
-    null, // no mapStateToProps
+    mapStateToProps,
     mapDispatchToProps
 )(AppView));
 

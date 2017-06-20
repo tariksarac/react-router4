@@ -4,10 +4,7 @@ import { withRouter } from 'react-router-dom'
 import HeaderView from './HeaderView'
 
 const mapStateToProps = (state) => {
-    const { isAuthenticated, profile, error } = state;
-    return {
-
-    }
+    return { authenticated: state.auth.authenticated };
 };
 
 const mapDispatchToProps = (dispatch) => {

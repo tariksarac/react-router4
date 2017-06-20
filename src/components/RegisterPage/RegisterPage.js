@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
-// import * as actions from '../../actions/auth';
-
+import * as actions from '../../actions/auth';
 
 
 const renderField = ({ input, type, placeholder, meta: { touched, error } }) => (
@@ -22,7 +20,7 @@ class RegisterPage extends Component {
     }
 
     handleFormSubmit(formProps) {
-        // this.props.signupUser(formProps);
+        this.props.signupUser(formProps);
 
     }
     render() {
@@ -60,7 +58,7 @@ class RegisterPage extends Component {
                     {/* Sign in button */}
                     <div className="form-bottom">
                         <p>Already signed up?</p>
-                        <Link to="/reduxauth/signin">Click here to sign in</Link>
+                        <Link to="/login">Click here to sign in</Link>
                     </div>
                 </form>
             </div>
@@ -115,12 +113,10 @@ const validate = props => {
 
 
 function mapStateToProps(state) {
-    // return { errorMessage: state.auth.error };
-    return {  };
+    return { errorMessage: state.auth.error };
 }
 
 RegisterPage = reduxForm({ form: 'signup', validate })(RegisterPage);
 
-// export default connect(mapStateToProps, actions)(RegisterPage);
-export default connect(mapStateToProps, null)(RegisterPage);
+export default connect(mapStateToProps, actions)(RegisterPage);
 
