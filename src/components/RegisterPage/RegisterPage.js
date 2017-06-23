@@ -19,6 +19,12 @@ class RegisterPage extends Component {
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
+    componentWillReceiveProps(nextProps){
+        if(nextProps.signed===true){
+            this.props.history.push('/login')
+        }
+    }
+
     handleFormSubmit(formProps) {
         this.props.signupUser(formProps);
 
@@ -113,7 +119,10 @@ const validate = props => {
 
 
 function mapStateToProps(state) {
-    return { errorMessage: state.auth.error };
+    return {
+        errorMessage: state.auth.error,
+        signed: state.auth.signup
+    };
 }
 
 RegisterPage = reduxForm({ form: 'signup', validate })(RegisterPage);

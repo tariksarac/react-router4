@@ -18,6 +18,12 @@ class LoginPage extends Component {
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
+    componentWillReceiveProps(nextProps){
+        if(nextProps.auth===true){
+            this.props.history.push('/')
+        }
+    }
+
     handleFormSubmit(props) {
         this.props.signinUser(props);
     }
@@ -38,7 +44,7 @@ class LoginPage extends Component {
 
                     {/* Forgot password */}
                     <div className="password-forgot">
-                        <Link to="/reduxauth/reset-password">I forgot my password</Link>
+                        <Link to="/reset-password">I forgot my password</Link>
                     </div>
 
                     {/* Server error message */}
@@ -74,12 +80,14 @@ function validate(formProps) {
 }
 
 function mapStateToProps(state) {
-    return { errorMessage: state.auth.error }
+    return {
+        errorMessage: state.auth.error,
+        auth: state.auth.authenticated
+    }
 }
 
 LoginPage.propTypes = {};
 LoginPage.defaultProps = {};
 
 LoginPage = reduxForm({ form: 'signin', validate })(LoginPage);
-
 export default connect(mapStateToProps, actions)(LoginPage);

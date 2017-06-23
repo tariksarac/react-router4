@@ -10,7 +10,7 @@ import { AUTH_USER } from './actions/types/index';
 
 const store = configureStore();
 
-const user = JSON.parse(localStorage.getItem('user'));
+const user = JSON.parse(sessionStorage.getItem('user'));
 
 if (user && user.token) {
     store.dispatch({ type: AUTH_USER });

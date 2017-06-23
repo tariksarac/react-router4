@@ -15,4 +15,5 @@ class LogoutPage extends Component {
 LogoutPage.propTypes = {};
 LogoutPage.defaultProps = {};
 
+
 export default connect(null, actions)(LogoutPage);

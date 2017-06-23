@@ -1,16 +1,10 @@
 import axios from 'axios'
 import { API_URL } from '../config';
 import { SIGNUP_SUCCESS, SIGNUP_FAILURE, AUTH_USER, SIGNIN_FAILURE, UNAUTH_USER } from './types/index';
+import setAuthorizationToken from '../utils/setAuthorizationToken'
+import { authError} from '../utils/helpers'
 
-/**
- * Error helper
- */
-export function authError(CONST, error) {
-    return {
-        type: CONST,
-        payload: error,
-    };
-}
+
 /**
  * Sign up
  */
@@ -19,8 +13,6 @@ export function signupUser(props) {
         axios.post(`${API_URL}/signup`, props)
             .then(() => {
                 dispatch({ type: SIGNUP_SUCCESS });
-
-                // browserHistory.push(`/reduxauth/signup/verify-email?email=${props.email}`);
             })
             .catch(response => dispatch(authError(SIGNUP_FAILURE, response.data.error)));
     }
@@ -35,11 +27,10 @@ export function signinUser(props) {
     return function (dispatch) {
         axios.post(`${API_URL}/signin`, { email, password })
             .then(response => {
-                localStorage.setItem('user', JSON.stringify(response.data));
+                sessionStorage.setItem('user', JSON.stringify(response.data));
+                setAuthorizationToken(response.data.token);
 
                 dispatch({ type: AUTH_USER });
-
-                // browserHistory.push('/reduxauth/users');
             })
             .catch(() => dispatch(authError(SIGNIN_FAILURE, "Email or password isn't right")));
     }
@@ -49,8 +40,7 @@ export function signinUser(props) {
  * Sign out
  */
 export function signoutUser() {
-    localStorage.clear();
-
+    sessionStorage.clear();
     return {
         type: UNAUTH_USER,
     }
