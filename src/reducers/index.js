@@ -1,10 +1,15 @@
 
 import { combineReducers } from 'redux'
-import auth from './auth'
+import { reducer as form } from 'redux-form';
+import authReducer from './authReducer';
+import resetPassword from './resetPasswordReducer';
+
 
 const rootReducer = combineReducers({
-    auth,
+    form,
+    auth: authReducer,
+    resetPass: resetPassword
     // add your other reducers here
-})
+});
 
 export default rootReducer

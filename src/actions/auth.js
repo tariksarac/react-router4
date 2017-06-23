@@ -1,30 +1,47 @@
-export const LOGIN_REQUEST = 'LOGIN_REQUEST'
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
-export const LOGIN_ERROR = 'LOGIN_ERROR'
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
+import axios from 'axios'
+import { API_URL } from '../config';
+import { SIGNUP_SUCCESS, SIGNUP_FAILURE, AUTH_USER, SIGNIN_FAILURE, UNAUTH_USER } from './types/index';
+import setAuthorizationToken from '../utils/setAuthorizationToken'
+import { authError} from '../utils/helpers'
 
-export function loginRequest() {
-    return {
-        type: LOGIN_REQUEST
+
+/**
+ * Sign up
+ */
+export function signupUser(props) {
+    return function (dispatch) {
+        axios.post(`${API_URL}/signup`, props)
+            .then(() => {
+                dispatch({ type: SIGNUP_SUCCESS });
+            })
+            .catch(response => dispatch(authError(SIGNUP_FAILURE, response.data.error)));
     }
 }
 
-export function loginSuccess(profile) {
-    return {
-        type: LOGIN_SUCCESS,
-        profile
+/**
+ * Sign in
+ */
+export function signinUser(props) {
+    const { email, password } = props;
+
+    return function (dispatch) {
+        axios.post(`${API_URL}/signin`, { email, password })
+            .then(response => {
+                sessionStorage.setItem('user', JSON.stringify(response.data));
+                setAuthorizationToken(response.data.token);
+
+                dispatch({ type: AUTH_USER });
+            })
+            .catch(() => dispatch(authError(SIGNIN_FAILURE, "Email or password isn't right")));
     }
 }
 
-export function loginError(error) {
+/**
+ * Sign out
+ */
+export function signoutUser() {
+    sessionStorage.clear();
     return {
-        type: LOGIN_ERROR,
-        error
-    }
-}
-
-export function logoutSuccess() {
-    return {
-        type: LOGOUT_SUCCESS
+        type: UNAUTH_USER,
     }
 }

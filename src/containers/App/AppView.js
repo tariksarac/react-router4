@@ -1,44 +1,47 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 
 import HeaderContainer from '../Header/HeaderContainer'
 import HomePage from '../../components/HomePage/HomePage'
 import RegisterPage from '../../components/RegisterPage/RegisterPage'
 import NotFoundPage from '../../components/NotFoundPage/NotFoundPage'
-import AuthService from '../../utils/AuthService'
+import LoginPage from '../../components/LoginPage/LoginPage'
+import LogoutPage from '../../components/LoginPage/LogoutPage'
+import ResetPasswordPage from '../../components/ResetPasswordPage/ResetPasswordPage'
+import ResetPasswordVerify from '../../components/ResetPasswordVerify/ResetPasswordVerify'
+import ResetPasswordNew from '../../components/ResetPasswordNew/ResetPasswordNew'
+
+
+//High order component for handling protected routes
+const PrivateRoute = ({ component: Component, ...rest }) => (
+    <Route {...rest} render={props => (
+        rest.auth ? (
+            <Component {...props}/>
+        ) : (
+            <Redirect to={{
+                pathname: '/login',
+                state: { from: props.location }
+            }}/>
+        )
+    )}/>
+);
 
 class App extends React.Component {
 
-    authService = new AuthService()
-
-    componentWillMount() {
-        // Add callback for lock's `authenticated` event
-        this.authService.lock.on('authenticated', (authResult) => {
-            this.authService.lock.getProfile(authResult.idToken, (error, profile) => {
-                if (error)
-                    return this.props.loginError(error)
-                AuthService.setToken(authResult.idToken) // static method
-                AuthService.setProfile(profile) // static method
-                this.props.loginSuccess(profile)
-                return this.props.history.push({ pathname: '/' })
-            })
-        })
-        // Add callback for lock's `authorization_error` event
-        this.authService.lock.on('authorization_error', (error) => {
-            this.props.loginError(error)
-            return this.props.history.push({ pathname: '/' })
-        })
-    }
-
     render() {
-        console.log(this.props)
         return(
             <div>
-                <HeaderContainer authService={this.authService} />
+                <HeaderContainer />
                 <Switch>
                     <Route exact path="/" component={HomePage}/>
                     <Route path="/register" component={RegisterPage}/>
+                    <Route path="/login" component={LoginPage}/>
+                    <Route path="/logout" component={LogoutPage}/>
+                    <Route exact path="/reset-password" component={ResetPasswordPage}/>
+                    <Route path="/reset-password/verify" component={ResetPasswordVerify} />
+                    <Route path="/reset-password/new" component={ResetPasswordNew} />
+                    <PrivateRoute path="/protected" component={HomePage} auth={this.props.authenticated}/>
+                    <Route exact path="/logout/test" component={HomePage}/>
                     <Route component={NotFoundPage}/>
                 </Switch>
             </div>
@@ -46,12 +49,6 @@ class App extends React.Component {
     }
 }
 
-App.propTypes = {
-    history: PropTypes.shape({
-        push: PropTypes.func.isRequired,
-    }).isRequired,
-    loginSuccess: PropTypes.func.isRequired,
-    loginError: PropTypes.func.isRequired
-}
-
 export default App
+
+

@@ -1,8 +1,17 @@
-import React from 'react'
+import React, {Component} from 'react';
 
-const HomePage = () =>
-    <div>
-        <h2>Homepage</h2>
-    </div>
+class HomePage extends Component {
+    render() {
+        return (
+            <div>
+                <h2>Homepage</h2>
+            </div>
+        );
+    }
+}
 
-export default HomePage
+HomePage.propTypes = {};
+HomePage.defaultProps = {};
+
+export default HomePage;
+
