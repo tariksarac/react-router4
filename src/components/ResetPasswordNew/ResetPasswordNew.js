@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
-import * as actions from '../../actions/resetPassword';
+import * as actions from '../../actions/authActions';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import queryString from 'query-string'

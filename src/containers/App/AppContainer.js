@@ -7,9 +7,6 @@ const mapStateToProps = (state) => {
     return { authenticated: state.auth.authenticated };
 };
 
-const AppContainer = withRouter(connect(
-    mapStateToProps,
-    null
-)(AppView));
+const AppContainer = withRouter(connect(mapStateToProps, null)(AppView));
 
 export default AppContainer

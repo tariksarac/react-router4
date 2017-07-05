@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home page tests renders  Home without crashing 1`] = `
+<div>
+  <h2>
+    Homepage
+  </h2>
+  <button
+    onClick={[Function]}
+  >
+    Change user
+  </button>
+  <div
+    id="messeage"
+  >
+    <p>
+      Home page
+    </p>
+  </div>
+</div>
+`;

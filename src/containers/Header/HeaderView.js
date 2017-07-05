@@ -22,16 +22,16 @@ class Header extends Component {
                                     <Link to="/">Home</Link>
                                 </li>
                                 <li>
-                                    <Link to="/logout">Logout</Link>
+                                    <Link to="auth/logout">Logout</Link>
                                 </li>
                             </ul>
                             :
                             <ul>
                                 <li>
-                                    <Link to="/login">Login</Link>
+                                    <Link to="/auth">Login</Link>
                                 </li>
                                 <li>
-                                    <Link to="/register">Register</Link>
+                                    <Link to="/auth/register">Register</Link>
                                 </li>
                             </ul>
                     }

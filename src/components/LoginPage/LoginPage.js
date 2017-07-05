@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { reduxForm, Field } from 'redux-form';
-import * as actions from '../../actions/auth';
+import * as actions from '../../actions/authActions';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -57,7 +57,7 @@ class LoginPage extends Component {
                     {/* Signup button */}
                     <div className="form-bottom">
                         <p>Don't have an account?</p>
-                        <Link to="/register">Click here to sign up</Link>
+                        <Link to="/auth/register">Click here to sign up</Link>
                     </div>
                 </form>
             </div>
