@@ -24,6 +24,9 @@ class Header extends Component {
                                 <li>
                                     <Link to="auth/logout">Logout</Link>
                                 </li>
+                                <li>
+                                    <Link to="react-grid">Grid</Link>
+                                </li>
                             </ul>
                             :
                             <ul>
